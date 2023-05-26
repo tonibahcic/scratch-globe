@@ -8,6 +8,7 @@ import {FeatureCollection} from "geojson";
 // countries https://github.com/vasturiano/react-globe.gl/blob/master/example/datasets/ne_110m_admin_0_countries.geojson
 // geojson https://geojson.org/
 // geojson https://www.npmjs.com/package/@types/geojson
+// db geojson helper http://ccksp.gnf.tf/dataset/ccksp-test-dataset/resource/33454cab-b5fd-4b23-95ef-1ab6884723aa#{query:{q:!united},view-graph:{graphOptions:{hooks:{processOffset:{},bindEvents:{}}}},graphOptions:{hooks:{processOffset:{},bindEvents:{}}},view-map:{geomField:!geojson}}
 function GlobeWrapper() {
   const countriesGeoJson: FeatureCollection = countriesJson as unknown as FeatureCollection
   const [countryHovered, setCountryHovered] = useState<any>();
@@ -16,13 +17,22 @@ function GlobeWrapper() {
     console.log(countryHovered?.properties)
   }, [countryHovered]);
 
-  const calculateAltitude = (polygon: any) => {
+  const getAltitude = (polygon: any) => {
     // return polygon?.properties?.ADM0_A3 == countryHovered?.properties?.ADM0_A3 ? 0.02 : 0.01
-    return 0.005
+    return 0.01
   }
 
-  const getLabel = (polygon: any) => {
+  const getCountryLabel = (polygon: any) => {
     return `<div style='color: white; background: black'>${polygon?.properties.NAME_SORT}</div>`
+  }
+
+  const getCountryColor = (polygon: any) => {
+    const visitedCountries = ['HRV', 'ITA', 'GBR'];
+    if (visitedCountries.includes(polygon?.properties.ADM0_A3_IS)) {
+      return 'white'
+    }
+
+    return '#9ab8e7ff'
   }
 
   const globeMaterial = () => {
@@ -39,20 +49,13 @@ function GlobeWrapper() {
   return (
     <Globe
       polygonsData={countriesGeoJson.features}
-      // globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-      // backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
-      backgroundColor={'rgb(255,255,255)'}
-      lineHoverPrecision={0}
-      polygonAltitude={calculateAltitude}
-      polygonSideColor={() => 'rgba(0, 100, 0, 0.0)'} // sides
-      polygonStrokeColor={() => '#11409E'} // borders
-      polygonCapColor={() => 'rgb(154,184,231)'} // country color
-      polygonLabel={getLabel}
-      onPolygonHover={(polygon: object | null, prevPolygon: object | null) =>
-        setCountryHovered(polygon)
-      }
-      polygonsTransitionDuration={300}
-      showGlobe={true}
+      backgroundColor={'#fff'}
+      polygonAltitude={getAltitude}
+      polygonSideColor={() => '#ffffff00'} // sides
+      polygonStrokeColor={() => '#11409e'} // borders
+      polygonCapColor={getCountryColor} // surface
+      polygonLabel={getCountryLabel}
+      onPolygonHover={setCountryHovered}
       globeMaterial={globeMaterial()}
     />
   );
