@@ -35,7 +35,18 @@ function GlobeWrapper() {
   }
 
   const getCountryLabel = (polygon: any) => {
-    return `<div style='color: white; background: black'>${polygon?.properties.NAME_SORT}</div>`
+    return `
+      <div style='
+        color: white;
+        background: black;
+        font-size: 16px;
+        padding: 5px;
+        border-radius: 5px;
+        font-weight: bold;
+      '>
+        ${polygon?.properties.NAME_SORT}
+      </div>
+    `;
   }
 
   const getCountryColor = (polygon: any) => {
