@@ -1,5 +1,6 @@
 import {FeatureCollection} from "geojson";
 import countriesJson from "./countries.json";
+import * as turf from '@turf/turf'
 
 export const countriesGeoJson: FeatureCollection = countriesJson as unknown as FeatureCollection
 
@@ -13,12 +14,13 @@ export const findCountries = (input: string) => {
 const getCountries = (): Country[] => countriesGeoJson.features
   .map((properties: any) => {
     let searchMatches = getSearchMatches(properties.properties)
+    let coordinates = getCoordinates(properties)
     return {
       name: properties.properties.NAME?.toLowerCase(),
       formalName: properties.properties.FORMAL_EN?.toLowerCase(),
       coordinates: {
-        lat: 0,
-        lng: 0
+        lng: coordinates[0],
+        lat: coordinates[1]
       },
       searchMatches: searchMatches
     }
@@ -37,6 +39,20 @@ const getSearchMatches = (properties: any): string[] => {
       ].filter(str => str !== undefined && str !== null)
     )
   )
+}
+
+const getCoordinates = (properties: any): number[] => {
+  let coordinatesStartingPoint = properties.geometry.coordinates[0]
+  let extractedCoordinates: number[][]
+  if (coordinatesStartingPoint.length === 1) {
+    extractedCoordinates = coordinatesStartingPoint[0]
+  } else {
+    extractedCoordinates = coordinatesStartingPoint
+  }
+
+  let features = turf.points(extractedCoordinates)
+  let center = turf.center(features)
+  return [...center.geometry.coordinates]
 }
 
 export interface Country {
