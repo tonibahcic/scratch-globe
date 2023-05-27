@@ -1,0 +1,15 @@
+.Results {
+  padding: 5px;
+}
+
+.SingleResult {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 22px;
+  padding: 5px;
+}
+.SingleResult:hover {
+  cursor: pointer;
+  color: lightblue;
+}
