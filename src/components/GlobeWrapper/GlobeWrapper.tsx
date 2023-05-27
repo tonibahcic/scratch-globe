@@ -51,8 +51,13 @@ function GlobeWrapper({ focusedCountry }: IProps) {
   }
 
   const getCountryColor = (polygon: any) => {
+    let codeName = polygon?.properties.ADM0_A3_IS
+    if (focusedCountry?.code === codeName) {
+      return '#577ccb'
+    }
+
     const visitedCountries = ['HRV', 'ITA', 'GBR'];
-    if (visitedCountries.includes(polygon?.properties.ADM0_A3_IS)) {
+    if (visitedCountries.includes(codeName)) {
       return '#fff'
     }
 

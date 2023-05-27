@@ -4,7 +4,7 @@ import './Navigation.css'
 function Navigation() {
   return (
     <div className="Navigation">
-      Navigation
+      {/*Navigation*/}
     </div>
   )
 }
