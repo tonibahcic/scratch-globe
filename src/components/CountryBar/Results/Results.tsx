@@ -1,8 +1,9 @@
 import React from 'react';
 import './Results.css'
+import {Country} from "../../../data/Countries/conutries";
 
 interface IProps {
-  results: string[]
+  results: Country[]
 }
 
 function Results({results}: IProps) {
@@ -10,8 +11,8 @@ function Results({results}: IProps) {
     <div className="Results">
       {results.map(country => {
         return (
-          <div id={country} className="SingleResult">
-            {country}
+          <div id={country.name} className="SingleResult">
+            {country.name}
           </div>
         )
       })}

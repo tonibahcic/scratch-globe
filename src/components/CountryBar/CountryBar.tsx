@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import Search from "./Search/Search";
 import Results from "./Results/Results";
 import './CountryBar.css'
-import {findCountries} from "../../data/Countries/conutries";
+import {Country, findCountries} from "../../data/Countries/conutries";
 
 function CountryBar() {
   const [input, setInput] = useState<string>("")
-  const [results, setResults] = useState<string[]>([])
+  const [results, setResults] = useState<Country[]>([])
 
   useEffect(() => {
     if (input.trim() === "") {
