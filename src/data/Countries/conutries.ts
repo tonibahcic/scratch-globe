@@ -5,9 +5,10 @@ import * as turf from '@turf/turf'
 export const countriesGeoJson: FeatureCollection = countriesJson as unknown as FeatureCollection
 
 export const findCountries = (input: string) => {
-  if (input.length <= 2) return []
+  let searchString = input.trim().toLowerCase()
+  if (searchString.length <= 2) return []
   return getCountries().filter(country => {
-    return country.searchMatches.some(match => match.includes(input))
+    return country.searchMatches.some(match => match.includes(searchString))
   })
 }
 

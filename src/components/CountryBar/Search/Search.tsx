@@ -17,7 +17,7 @@ function Search({ setInput }: IProps) {
       <ThemeProvider theme={theme}>
         <TextField
           className="TextField"
-          variant="outlined"
+          variant="filled"
           fullWidth
           placeholder="Country"
           onChange={inputHandler}
@@ -33,10 +33,10 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           fontSize: '25px',
-          color: 'white',
           fontWeight: 'bold',
-          padding: '5px 20px'
-        }
+          paddingBottom: '10px',
+          paddingLeft: '10px',
+        },
       }
     },
     MuiTextField: {
@@ -46,10 +46,13 @@ const theme = createTheme({
         },
       },
     },
-    MuiOutlinedInput: {
+    MuiFilledInput: {
       styleOverrides: {
-        notchedOutline: {
-          border: 0,
+        root: {
+          backgroundColor: "transparent",
+          ":after": {
+            border: 'none',
+          }
         }
       }
     }
