@@ -17,8 +17,8 @@ const getCountries = (): Country[] => countriesGeoJson.features
     let searchMatches = getSearchMatches(properties.properties)
     let coordinates = getCoordinates(properties)
     return {
-      name: properties.properties.NAME?.toLowerCase(),
-      formalName: properties.properties.FORMAL_EN?.toLowerCase(),
+      name: properties.properties.NAME,
+      formalName: properties.properties.FORMAL_EN,
       code: properties.properties.ADM0_A3_IS,
       coordinates: {
         lng: coordinates[0],

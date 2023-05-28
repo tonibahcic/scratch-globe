@@ -12,7 +12,10 @@ function App() {
       <header className="App-header">
         <Navigation />
         <GlobeWrapper focusedCountry={focusedCountry} />
-        <CountryBar setFocusedCountry={setFocusedCountry} />
+        <CountryBar
+          focusedCountry={focusedCountry}
+          setFocusedCountry={setFocusedCountry}
+        />
       </header>
     </div>
   );

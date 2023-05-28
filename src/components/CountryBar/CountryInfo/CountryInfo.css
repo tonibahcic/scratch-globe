@@ -1,0 +1,29 @@
+.CountryInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  min-height: calc(100vh - 44px);
+  width: calc(100% - 20px);
+}
+
+.CountryInfoHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.CountryInfoHeaderName {
+}
+
+.CountryInfoHeaderButton {
+  display: block;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.CountryInfoHeaderButton:hover {
+  cursor: pointer;
+  background-color: rgba(128, 128, 128, 0.8);
+}

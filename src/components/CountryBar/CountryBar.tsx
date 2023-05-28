@@ -3,12 +3,14 @@ import Search from "./Search/Search";
 import Results from "./Results/Results";
 import './CountryBar.css'
 import {Country, findCountries} from "../../data/Countries/conutries";
+import CountryInfo from "./CountryInfo/CountryInfo";
 
 interface IProps {
+  focusedCountry?: Country
   setFocusedCountry: Dispatch<SetStateAction<Country | undefined>>;
 }
 
-function CountryBar({ setFocusedCountry }: IProps) {
+function CountryBar({ focusedCountry, setFocusedCountry }: IProps) {
   const [input, setInput] = useState<string>("")
   const [results, setResults] = useState<Country[]>([])
 
@@ -24,11 +26,27 @@ function CountryBar({ setFocusedCountry }: IProps) {
 
   return (
     <div className="CountryBar">
-      <Search setInput={setInput} />
-      <Results
-        results={results}
-        setFocusedCountry={setFocusedCountry}
-      />
+      {
+        focusedCountry !== undefined ? (
+          <>
+            <CountryInfo
+              closeInfo={() => {
+                setFocusedCountry(undefined)
+                setInput("")
+              }}
+              focusedCountry={focusedCountry}
+            />
+          </>
+        ) : (
+          <>
+            <Search setInput={setInput} />
+            <Results
+              results={results}
+              setFocusedCountry={setFocusedCountry}
+            />
+          </>
+        )
+      }
     </div>
   )
 }
