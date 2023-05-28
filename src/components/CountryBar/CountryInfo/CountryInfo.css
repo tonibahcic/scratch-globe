@@ -20,6 +20,11 @@
 .CountryInfoHeaderName {
 }
 
+.CountryInfoHeaderName > img {
+  padding-right: 5px;
+  padding-bottom: 4px;
+}
+
 .CountryInfoHeaderButton {
   display: block;
   padding: 5px;

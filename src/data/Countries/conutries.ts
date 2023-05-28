@@ -16,10 +16,12 @@ const getCountries = (): Country[] => countriesGeoJson.features
   .map((properties: any) => {
     let searchMatches = getSearchMatches(properties.properties)
     let coordinates = getCoordinates(properties)
+    let flagCode = getFlagCode(properties.properties)
     return {
       name: properties.properties.NAME,
       formalName: properties.properties.FORMAL_EN,
       code: properties.properties.ADM0_A3_IS,
+      flagCode: flagCode,
       coordinates: {
         lng: coordinates[0],
         lat: coordinates[1]
@@ -57,10 +59,17 @@ const getCoordinates = (properties: any): number[] => {
   return [...center.geometry.coordinates]
 }
 
+const getFlagCode = (properties: any): string => {
+  return properties.ISO_A2?.toUpperCase()
+    ?? properties.POSTAL?.toUpperCase()
+    ?? ""
+}
+
 export interface Country {
   name: string,
   formalName: string,
   code: string,
+  flagCode: string,
   coordinates: { lat: number, lng: number },
   searchMatches: string[]
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import './CountryInfo.css'
 import CloseIcon from "@mui/icons-material/Close";
 import {Country} from "../../../data/Countries/conutries";
+import ReactCountryFlag from "react-country-flag"
 
 interface IProps {
   closeInfo: () => void
@@ -13,6 +14,10 @@ function CountryInfo({closeInfo, focusedCountry}: IProps) {
     <div className="CountryInfo">
       <div className="CountryInfoHeader">
         <div className="CountryInfoHeaderName">
+          <ReactCountryFlag
+            countryCode={focusedCountry?.flagCode ?? ""}
+            svg
+          />
           {focusedCountry?.name}
         </div>
         <CloseIcon className="CountryInfoHeaderButton" onClick={closeInfo} />
