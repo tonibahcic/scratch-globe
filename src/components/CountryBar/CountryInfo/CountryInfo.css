@@ -35,3 +35,17 @@
   cursor: pointer;
   background-color: rgba(128, 128, 128, 0.8);
 }
+
+.CountryInfoDetails {
+  font-size: 18px;
+  text-align: start;
+}
+
+.CountryInfoDetails > div {
+  padding: 2px 5px;
+}
+
+.CountryInfoDetails > div > span {
+  font-weight: bold;
+  font-size: 16px;
+}

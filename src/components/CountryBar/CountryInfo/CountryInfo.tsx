@@ -20,7 +20,40 @@ function CountryInfo({closeInfo, focusedCountry}: IProps) {
           />
           {focusedCountry?.name}
         </div>
-        <CloseIcon className="CountryInfoHeaderButton" onClick={closeInfo} />
+        <CloseIcon className="CountryInfoHeaderButton" onClick={closeInfo}/>
+      </div>
+      <div className="CountryInfoDetails">
+        <div>
+          <span>Formal Name:{' '}</span>
+          {focusedCountry?.details.formalName}
+        </div>
+        <div>
+          <span>Type:{' '}</span>
+          {focusedCountry?.details.type}
+        </div>
+        <div>
+          <span>Continent:{' '}</span>
+          {focusedCountry?.details.continent}
+        </div>
+        <div>
+          <span>Subregion:{' '}</span>
+          {focusedCountry?.details.subregion}
+        </div>
+        <div>
+          <span>Population:{' '}</span>
+          {
+            ((focusedCountry?.details.populationNumber ?? 0) / 1_000_000).toFixed(2)
+          }
+          {'M '}
+          ({focusedCountry?.details.populationYear}.)
+        </div>
+        <div>
+          <span>GDP:{' '}</span>
+          {'$'}
+          {focusedCountry?.details.gdpNumber}
+          {' '}
+          ({focusedCountry?.details.gdpYear}.)
+        </div>
       </div>
     </div>
   )

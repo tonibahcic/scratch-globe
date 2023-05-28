@@ -17,16 +17,17 @@ const getCountries = (): Country[] => countriesGeoJson.features
     let searchMatches = getSearchMatches(properties.properties)
     let coordinates = getCoordinates(properties)
     let flagCode = getFlagCode(properties.properties)
+    let details = getDetails(properties.properties)
     return {
       name: properties.properties.NAME,
-      formalName: properties.properties.FORMAL_EN,
       code: properties.properties.ADM0_A3_IS,
       flagCode: flagCode,
       coordinates: {
         lng: coordinates[0],
         lat: coordinates[1]
       },
-      searchMatches: searchMatches
+      searchMatches: searchMatches,
+      details: details
     }
   })
 
@@ -65,11 +66,37 @@ const getFlagCode = (properties: any): string => {
     ?? ""
 }
 
+const getDetails = (properties: any): CountryDetails => {
+  return {
+    formalName: properties.FORMAL_EN,
+    type: properties.TYPE,
+    continent: properties.CONTINENT,
+    region: properties.REGION,
+    subregion: properties.SUBREGION,
+    populationNumber: properties.POP_EST,
+    populationYear: properties.POP_YEAR,
+    gdpNumber: properties.GDP_MD_EST,
+    gdpYear: properties.GDP_YEAR
+  }
+}
+
 export interface Country {
   name: string,
-  formalName: string,
   code: string,
   flagCode: string,
   coordinates: { lat: number, lng: number },
-  searchMatches: string[]
+  searchMatches: string[],
+  details: CountryDetails
+}
+
+export interface CountryDetails {
+  formalName: string,
+  type: string,
+  continent: string,
+  region: string,
+  subregion: string,
+  populationNumber: number,
+  populationYear: number,
+  gdpNumber: number,
+  gdpYear: number
 }
