@@ -2,8 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  min-height: calc(100vh - 44px);
-  width: calc(100% - 20px);
+  min-height: calc(100vh - 66px);
+  width: calc(100% - 34px);
+  margin-top: 23px;
+  font-size: 25px;
 }
 
 .CountryInfoHeader {
@@ -12,6 +14,7 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 5px;
+  font-weight: bold;
 }
 
 .CountryInfoHeaderName {
