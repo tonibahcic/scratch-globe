@@ -73,7 +73,7 @@ const getFlagCode = (properties: any): string => {
     return `${code}`
   }
 
-  const resolveBlank = (name: string, code: string) => {
+  const resolveIfBlank = (name: string, code: string) => {
     switch (name) {
       case "France":
         return "FR"
@@ -88,7 +88,7 @@ const getFlagCode = (properties: any): string => {
     ?? validate(properties.POSTAL?.toUpperCase())
     ?? ""
 
-  return resolveBlank(properties.NAME, validatedCode)
+  return resolveIfBlank(properties.NAME, validatedCode)
 }
 
 const getDetails = (properties: any): CountryDetails => {

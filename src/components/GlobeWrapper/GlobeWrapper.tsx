@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 import Globe from "react-globe.gl";
 import * as THREE from 'three';
 import {countriesGeoJson, findCountryByCountryCode} from "../../data/Countries/conutries";
-import {SelectedCountryContext} from "../App/App";
+import {SelectedCountryContext, VisitedCountriesContext} from "../App/App";
 
 // docs https://www.npmjs.com/package/react-globe.gl#polygons-layer
 // countries https://github.com/vasturiano/react-globe.gl/blob/master/example/datasets/ne_110m_admin_0_countries.geojson
@@ -13,6 +13,7 @@ function GlobeWrapper() {
   const globeRef = useRef();
   const [countryHovered, setCountryHovered] = useState<any>();
   const {setSelectedCountry, selectedCountry} = useContext(SelectedCountryContext)
+  const { codes: visitedCountries } = useContext(VisitedCountriesContext)
 
   useEffect(() => {
     const countryLocation = {
@@ -24,11 +25,6 @@ function GlobeWrapper() {
     let globe = globeRef?.current as any
     globe?.pointOfView(countryLocation, 750)
   }, [selectedCountry]);
-
-  const getAltitude = (polygon: any) => {
-    // return polygon?.properties?.ADM0_A3 == countryHovered?.properties?.ADM0_A3 ? 0.02 : 0.01
-    return 0.01
-  }
 
   const getCountryLabel = (polygon: any) => {
     return `
@@ -47,13 +43,19 @@ function GlobeWrapper() {
 
   const getCountryColor = (polygon: any) => {
     let codeName = polygon?.properties.ADM0_A3_IS
-    if (selectedCountry?.code === codeName) {
-      return '#577ccb'
+    let isSelected = selectedCountry?.code === codeName
+    let isVisited = visitedCountries.includes(codeName)
+
+    if (isSelected && isVisited) {
+      return '#0038c4'
     }
 
-    const visitedCountries = ['HRV', 'ITA', 'GBR'];
-    if (visitedCountries.includes(codeName)) {
-      return '#fff'
+    if (isSelected) {
+      return '#1b49be'
+    }
+
+    if (isVisited) {
+      return 'rgba(105,151,225,0.9)'
     }
 
     return '#9ab8e7ff'
@@ -92,7 +94,7 @@ function GlobeWrapper() {
       ref={globeRef}
       polygonsData={countriesGeoJson.features}
       backgroundColor={'#03134b'}
-      polygonAltitude={getAltitude}
+      polygonAltitude={0.01}
       polygonSideColor={() => '#ffffff00'} // sides
       polygonStrokeColor={() => '#11409e'} // borders
       polygonCapColor={getCountryColor} // surface

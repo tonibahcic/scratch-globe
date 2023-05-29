@@ -2,7 +2,8 @@ import React, {useContext} from 'react';
 import './CountryInfo.css'
 import CloseIcon from "@mui/icons-material/Close";
 import ReactCountryFlag from "react-country-flag"
-import {SelectedCountryContext} from "../../App/App";
+import {SelectedCountryContext, VisitedCountriesContext} from "../../App/App";
+import {Button, createTheme, ThemeProvider} from "@mui/material";
 
 interface IProps {
   closeInfo: () => void
@@ -10,6 +11,17 @@ interface IProps {
 
 function CountryInfo({closeInfo}: IProps) {
   const { selectedCountry } = useContext(SelectedCountryContext)
+  const { codes, addCountry, removeCountry} = useContext(VisitedCountriesContext)
+  const isVisited = codes.includes(selectedCountry?.code ?? "-")
+
+  const visitedButtonClick = () => {
+    let code = selectedCountry?.code ?? ""
+    if (code === "") return
+    if (!isVisited) addCountry(code)
+    else removeCountry(code)
+  }
+
+  // const visitedButtonClick
   return (
     <div className="CountryInfo">
       <div className="CountryInfoHeader">
@@ -53,8 +65,34 @@ function CountryInfo({closeInfo}: IProps) {
           ({selectedCountry?.details.gdpYear}.)
         </div>
       </div>
+      <div className="CountryInfoButtons">
+        <ThemeProvider theme={theme}>
+          <Button
+            variant="outlined"
+            onClick={visitedButtonClick}
+          >
+            {isVisited ? 'Unmark country' : 'Mark as visited'}
+          </Button>
+        </ThemeProvider>
+      </div>
     </div>
   )
 }
+
+const theme = createTheme({
+  components: {
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          width: "100%",
+          borderRadius: "13px !important",
+          borderColor: "black !important",
+          color: "black !important",
+          fontWeight: "bold !important"
+        }
+      }
+    },
+  },
+});
 
 export default CountryInfo
