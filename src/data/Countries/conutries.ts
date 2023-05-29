@@ -12,6 +12,10 @@ export const findCountries = (input: string) => {
   })
 }
 
+export const findCountryByCountryCode = (code: string): Country | undefined => {
+  return getCountries().find(country => country.code === code)
+}
+
 const getCountries = (): Country[] => countriesGeoJson.features
   .map((properties: any) => {
     let searchMatches = getSearchMatches(properties.properties)
@@ -61,9 +65,30 @@ const getCoordinates = (properties: any): number[] => {
 }
 
 const getFlagCode = (properties: any): string => {
-  return properties.ISO_A2?.toUpperCase()
-    ?? properties.POSTAL?.toUpperCase()
+  const validate = (code: number | string | undefined): string | null => {
+    if (code === undefined) return null
+    if (code === "-99") return null
+    if (code === -99) return null
+    if (code.toString().trim().length !== 2) return null
+    return `${code}`
+  }
+
+  const resolveBlank = (name: string, code: string) => {
+    switch (name) {
+      case "France":
+        return "FR"
+      case "Norway":
+        return "NO"
+    }
+
+    return code
+  }
+
+  let validatedCode = validate(properties.ISO_A2?.toUpperCase())
+    ?? validate(properties.POSTAL?.toUpperCase())
     ?? ""
+
+  return resolveBlank(properties.NAME, validatedCode)
 }
 
 const getDetails = (properties: any): CountryDetails => {

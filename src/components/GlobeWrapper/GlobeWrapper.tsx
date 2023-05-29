@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 import Globe from "react-globe.gl";
 import * as THREE from 'three';
-import {countriesGeoJson} from "../../data/Countries/conutries";
+import {countriesGeoJson, findCountryByCountryCode} from "../../data/Countries/conutries";
 import {SelectedCountryContext} from "../App/App";
 
 // docs https://www.npmjs.com/package/react-globe.gl#polygons-layer
@@ -12,7 +12,7 @@ import {SelectedCountryContext} from "../App/App";
 function GlobeWrapper() {
   const globeRef = useRef();
   const [countryHovered, setCountryHovered] = useState<any>();
-  const {selectedCountry} = useContext(SelectedCountryContext)
+  const {setSelectedCountry, selectedCountry} = useContext(SelectedCountryContext)
 
   useEffect(() => {
     const countryLocation = {
@@ -81,6 +81,12 @@ function GlobeWrapper() {
     globe?.pointOfView(countryLocation, 0)
   }
 
+  const onCountryClick = (polygon: any) => {
+    let code = polygon?.properties.ADM0_A3_IS
+    let country = findCountryByCountryCode(code)
+    setSelectedCountry(country)
+  }
+
   return (
     <Globe
       ref={globeRef}
@@ -92,6 +98,7 @@ function GlobeWrapper() {
       polygonCapColor={getCountryColor} // surface
       polygonLabel={getCountryLabel}
       onPolygonHover={setCountryHovered}
+      onPolygonClick={onCountryClick}
       globeMaterial={globeMaterial()}
       onZoom={resetZoom}
       width={1000}
