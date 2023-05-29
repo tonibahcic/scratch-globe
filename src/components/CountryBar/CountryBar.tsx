@@ -1,18 +1,15 @@
-import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Search from "./Search/Search";
 import Results from "./Results/Results";
 import './CountryBar.css'
 import {Country, findCountries} from "../../data/Countries/conutries";
 import CountryInfo from "./CountryInfo/CountryInfo";
+import {SelectedCountryContext} from "../App/App";
 
-interface IProps {
-  focusedCountry?: Country
-  setFocusedCountry: Dispatch<SetStateAction<Country | undefined>>;
-}
-
-function CountryBar({ focusedCountry, setFocusedCountry }: IProps) {
+function CountryBar() {
   const [input, setInput] = useState<string>("")
   const [results, setResults] = useState<Country[]>([])
+  const {selectedCountry, setSelectedCountry} = useContext(SelectedCountryContext)
 
   useEffect(() => {
     if (input.trim() === "") {
@@ -27,23 +24,19 @@ function CountryBar({ focusedCountry, setFocusedCountry }: IProps) {
   return (
     <div className="CountryBar">
       {
-        focusedCountry !== undefined ? (
+        selectedCountry !== undefined ? (
           <>
             <CountryInfo
               closeInfo={() => {
-                setFocusedCountry(undefined)
+                setSelectedCountry(undefined)
                 setInput("")
               }}
-              focusedCountry={focusedCountry}
             />
           </>
         ) : (
           <>
             <Search setInput={setInput} />
-            <Results
-              results={results}
-              setFocusedCountry={setFocusedCountry}
-            />
+            <Results results={results} />
           </>
         )
       }

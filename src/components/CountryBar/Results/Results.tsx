@@ -1,13 +1,14 @@
-import React, {Dispatch, SetStateAction} from 'react';
+import React, {useContext} from 'react';
 import './Results.css'
 import {Country} from "../../../data/Countries/conutries";
+import {SelectedCountryContext} from "../../App/App";
 
 interface IProps {
   results: Country[]
-  setFocusedCountry: Dispatch<SetStateAction<Country | undefined>>;
 }
 
-function Results({results, setFocusedCountry}: IProps) {
+function Results({results}: IProps) {
+  const { setSelectedCountry } = useContext(SelectedCountryContext)
   return (
     <div className="Results">
       {results.map(country => {
@@ -15,7 +16,7 @@ function Results({results, setFocusedCountry}: IProps) {
           <div
             id={country.name}
             className="SingleResult"
-            onClick={(() => setFocusedCountry(country))}
+            onClick={(() => setSelectedCountry(country))}
           >
             {country.name}
           </div>

@@ -1,58 +1,56 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './CountryInfo.css'
 import CloseIcon from "@mui/icons-material/Close";
-import {Country} from "../../../data/Countries/conutries";
 import ReactCountryFlag from "react-country-flag"
+import {SelectedCountryContext} from "../../App/App";
 
 interface IProps {
   closeInfo: () => void
-  focusedCountry?: Country
 }
 
-function CountryInfo({closeInfo, focusedCountry}: IProps) {
+function CountryInfo({closeInfo}: IProps) {
+  const { selectedCountry } = useContext(SelectedCountryContext)
   return (
     <div className="CountryInfo">
       <div className="CountryInfoHeader">
         <div className="CountryInfoHeaderName">
           <ReactCountryFlag
-            countryCode={focusedCountry?.flagCode ?? ""}
+            countryCode={selectedCountry?.flagCode ?? ""}
             svg
           />
-          {focusedCountry?.name}
+          {selectedCountry?.name}
         </div>
         <CloseIcon className="CountryInfoHeaderButton" onClick={closeInfo}/>
       </div>
       <div className="CountryInfoDetails">
         <div>
           <span>Formal Name:{' '}</span>
-          {focusedCountry?.details.formalName}
+          {selectedCountry?.details.formalName}
         </div>
         <div>
           <span>Type:{' '}</span>
-          {focusedCountry?.details.type}
+          {selectedCountry?.details.type}
         </div>
         <div>
           <span>Continent:{' '}</span>
-          {focusedCountry?.details.continent}
+          {selectedCountry?.details.continent}
         </div>
         <div>
           <span>Subregion:{' '}</span>
-          {focusedCountry?.details.subregion}
+          {selectedCountry?.details.subregion}
         </div>
         <div>
           <span>Population:{' '}</span>
-          {
-            ((focusedCountry?.details.populationNumber ?? 0) / 1_000_000).toFixed(2)
-          }
+          {((selectedCountry?.details.populationNumber ?? 0) / 1_000_000).toFixed(2)}
           {'M '}
-          ({focusedCountry?.details.populationYear}.)
+          ({selectedCountry?.details.populationYear}.)
         </div>
         <div>
           <span>GDP:{' '}</span>
           {'$'}
-          {focusedCountry?.details.gdpNumber}
+          {selectedCountry?.details.gdpNumber}
           {' '}
-          ({focusedCountry?.details.gdpYear}.)
+          ({selectedCountry?.details.gdpYear}.)
         </div>
       </div>
     </div>

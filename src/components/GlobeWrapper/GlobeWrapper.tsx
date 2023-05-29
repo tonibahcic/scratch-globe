@@ -1,34 +1,29 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import Globe from "react-globe.gl";
 import * as THREE from 'three';
-import {countriesGeoJson, Country} from "../../data/Countries/conutries";
+import {countriesGeoJson} from "../../data/Countries/conutries";
+import {SelectedCountryContext} from "../App/App";
 
 // docs https://www.npmjs.com/package/react-globe.gl#polygons-layer
 // countries https://github.com/vasturiano/react-globe.gl/blob/master/example/datasets/ne_110m_admin_0_countries.geojson
 // geojson https://geojson.org/
 // geojson https://www.npmjs.com/package/@types/geojson
 // db geojson helper http://ccksp.gnf.tf/dataset/ccksp-test-dataset/resource/33454cab-b5fd-4b23-95ef-1ab6884723aa#{query:{q:!united},view-graph:{graphOptions:{hooks:{processOffset:{},bindEvents:{}}}},graphOptions:{hooks:{processOffset:{},bindEvents:{}}},view-map:{geomField:!geojson}}
-interface IProps {
-  focusedCountry?: Country
-}
-function GlobeWrapper({ focusedCountry }: IProps) {
+function GlobeWrapper() {
   const globeRef = useRef();
   const [countryHovered, setCountryHovered] = useState<any>();
-
-  useEffect(() => {
-    // console.log(countryHovered?.properties)
-  }, [countryHovered]);
+  const {selectedCountry} = useContext(SelectedCountryContext)
 
   useEffect(() => {
     const countryLocation = {
-      lat: focusedCountry?.coordinates?.lat ?? 36,
-      lng: focusedCountry?.coordinates?.lng ?? 19,
+      lat: selectedCountry?.coordinates?.lat ?? 36,
+      lng: selectedCountry?.coordinates?.lng ?? 19,
       altitude: 1.8
     };
 
     let globe = globeRef?.current as any
     globe?.pointOfView(countryLocation, 750)
-  }, [focusedCountry]);
+  }, [selectedCountry]);
 
   const getAltitude = (polygon: any) => {
     // return polygon?.properties?.ADM0_A3 == countryHovered?.properties?.ADM0_A3 ? 0.02 : 0.01
@@ -52,7 +47,7 @@ function GlobeWrapper({ focusedCountry }: IProps) {
 
   const getCountryColor = (polygon: any) => {
     let codeName = polygon?.properties.ADM0_A3_IS
-    if (focusedCountry?.code === codeName) {
+    if (selectedCountry?.code === codeName) {
       return '#577ccb'
     }
 
