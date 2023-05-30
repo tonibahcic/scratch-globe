@@ -3,17 +3,16 @@ import Globe from "react-globe.gl";
 import * as THREE from 'three';
 import {countriesGeoJson, findCountryByCountryCode} from "../../data/Countries/conutries";
 import {SelectedCountryContext, VisitedCountriesContext} from "../App/App";
+import {useWindowSize} from "usehooks-ts";
+import './GlobeWrapper.css';
 
-// docs https://www.npmjs.com/package/react-globe.gl#polygons-layer
-// countries https://github.com/vasturiano/react-globe.gl/blob/master/example/datasets/ne_110m_admin_0_countries.geojson
-// geojson https://geojson.org/
-// geojson https://www.npmjs.com/package/@types/geojson
-// db geojson helper http://ccksp.gnf.tf/dataset/ccksp-test-dataset/resource/33454cab-b5fd-4b23-95ef-1ab6884723aa#{query:{q:!united},view-graph:{graphOptions:{hooks:{processOffset:{},bindEvents:{}}}},graphOptions:{hooks:{processOffset:{},bindEvents:{}}},view-map:{geomField:!geojson}}
 function GlobeWrapper() {
   const globeRef = useRef();
   const [countryHovered, setCountryHovered] = useState<any>();
   const {setSelectedCountry, selectedCountry} = useContext(SelectedCountryContext)
   const { codes: visitedCountries } = useContext(VisitedCountriesContext)
+  const windowSize = useWindowSize();
+  const globeSize = Math.min(windowSize.height, windowSize.width)
 
   useEffect(() => {
     const countryLocation = {
@@ -90,22 +89,24 @@ function GlobeWrapper() {
   }
 
   return (
-    <Globe
-      ref={globeRef}
-      polygonsData={countriesGeoJson.features}
-      backgroundColor={'#03134b'}
-      polygonAltitude={0.01}
-      polygonSideColor={() => '#ffffff00'} // sides
-      polygonStrokeColor={() => '#003296'} // borders
-      polygonCapColor={getCountryColor} // surface
-      polygonLabel={getCountryLabel}
-      onPolygonHover={setCountryHovered}
-      onPolygonClick={onCountryClick}
-      globeMaterial={globeMaterial()}
-      onZoom={resetZoom}
-      width={1000}
-      height={890}
-    />
+    <div className="GlobeWrapper">
+      <Globe
+        ref={globeRef}
+        polygonsData={countriesGeoJson.features}
+        backgroundColor={'#03134b'}
+        polygonAltitude={0.01}
+        polygonSideColor={() => '#ffffff00'} // sides
+        polygonStrokeColor={() => '#003296'} // borders
+        polygonCapColor={getCountryColor} // surface
+        polygonLabel={getCountryLabel}
+        onPolygonHover={setCountryHovered}
+        onPolygonClick={onCountryClick}
+        globeMaterial={globeMaterial()}
+        onZoom={resetZoom}
+        width={globeSize}
+        height={globeSize}
+      />
+    </div>
   );
 }
 

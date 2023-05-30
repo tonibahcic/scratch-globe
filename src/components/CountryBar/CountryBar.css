@@ -1,11 +1,12 @@
 .CountryBar {
-  min-height: calc(100vh - 44px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
   background-color: rgba(157, 186, 208, 0.73);
-  margin: 20px;
   border: 2px solid black;
   border-radius: 20px;
+  margin: 2vh;
+  width: 100%;
+  max-width: 450px;
+  min-width: 300px;
 }
