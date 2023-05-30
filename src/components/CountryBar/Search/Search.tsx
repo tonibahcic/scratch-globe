@@ -1,16 +1,26 @@
-import React, {Dispatch, SetStateAction} from 'react';
+import React, {Dispatch, SetStateAction, useContext} from 'react';
 import './Search.css';
 import {createTheme, TextField, ThemeProvider} from "@mui/material";
+import {SelectedCountryContext} from "../../App/App";
+import {Country} from "../../../data/Countries/conutries";
 
 interface IProps {
   setInput: Dispatch<SetStateAction<string>>;
+  results: Country[]
 }
 
-function Search({ setInput }: IProps) {
+function Search({ setInput, results }: IProps) {
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     let lowerCaseInput = e.target.value.toLowerCase();
     setInput(lowerCaseInput);
   };
+  const { setSelectedCountry } = useContext(SelectedCountryContext)
+
+  const onKeyPress = (e: any) => {
+    if (e.key === 'Enter') {
+      setSelectedCountry(results[0])
+    }
+  }
 
   return (
     <div className="Search">
@@ -21,6 +31,7 @@ function Search({ setInput }: IProps) {
           fullWidth
           placeholder="Country"
           onChange={inputHandler}
+          onKeyDown={onKeyPress}
         />
       </ThemeProvider>
     </div>

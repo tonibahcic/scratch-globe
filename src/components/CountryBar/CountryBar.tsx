@@ -35,7 +35,7 @@ function CountryBar() {
           </>
         ) : (
           <>
-            <Search setInput={setInput} />
+            <Search setInput={setInput} results={results} />
             <Results results={results} />
           </>
         )
