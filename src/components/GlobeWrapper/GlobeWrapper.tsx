@@ -47,27 +47,27 @@ function GlobeWrapper() {
     let isVisited = visitedCountries.includes(codeName)
 
     if (isSelected && isVisited) {
-      return '#0038c4'
+      return 'rgba(218,236,246,0.7)'
     }
 
     if (isSelected) {
-      return '#1b49be'
+      return 'rgba(110,143,198,0.7)'
     }
 
     if (isVisited) {
-      return 'rgba(105,151,225,0.9)'
+      return '#DAECF6'
     }
 
-    return '#9ab8e7ff'
+    return '#6E8FC6'
   }
 
   const globeMaterial = () => {
     let material = new THREE.MeshPhongMaterial()
     let color = new THREE.Color();
-    color.setStyle('rgba(0,22,161)')
+    color.setStyle('rgb(0,43,133)')
     material.color = color
     material.transparent = true
-    material.opacity = 0.85
+    material.opacity = 0.95
 
     return material
   }
@@ -96,7 +96,7 @@ function GlobeWrapper() {
       backgroundColor={'#03134b'}
       polygonAltitude={0.01}
       polygonSideColor={() => '#ffffff00'} // sides
-      polygonStrokeColor={() => '#11409e'} // borders
+      polygonStrokeColor={() => '#003296'} // borders
       polygonCapColor={getCountryColor} // surface
       polygonLabel={getCountryLabel}
       onPolygonHover={setCountryHovered}
