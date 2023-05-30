@@ -2,8 +2,8 @@ import React, {createContext, useState} from 'react';
 import './App.css';
 import GlobeWrapper from "../GlobeWrapper/GlobeWrapper";
 import CountryBar from "../CountryBar/CountryBar";
-import Navigation from "../Navigation/Navigation";
 import {Country} from "../../data/Countries/conutries";
+import NavigationBar from "../NavigationBar/NavigationBar";
 
 interface ICountryContext {
   selectedCountry?: Country,
@@ -42,7 +42,7 @@ function App() {
       <header className="App-header">
         <VisitedCountriesContext.Provider value={visitedCountriesContextValue}>
         <SelectedCountryContext.Provider value={countryContextValue}>
-          <Navigation/>
+          <NavigationBar />
           <GlobeWrapper />
           <CountryBar />
         </SelectedCountryContext.Provider>

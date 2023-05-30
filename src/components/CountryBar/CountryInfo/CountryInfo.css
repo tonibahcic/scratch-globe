@@ -6,7 +6,7 @@
   min-height: calc(100vh - 66px);
   width: calc(100% - 34px);
   margin-top: 23px;
-  font-size: 25px;
+  font-size: calc(12px + 2vmin);
 }
 
 .CountryInfoHeader {
@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 5px;
+  padding: 0.3vh 0.3vw;
   font-weight: bold;
 }
 
@@ -23,7 +23,7 @@
 
 .CountryInfoHeaderName > img {
   padding-right: 5px;
-  padding-bottom: 4px;
+  padding-bottom: 0.6vmin;
 }
 
 .CountryInfoHeaderButton {
@@ -38,17 +38,16 @@
 }
 
 .CountryInfoDetails {
-  font-size: 18px;
+  font-size: calc(8px + 1vmin);
   text-align: start;
 }
 
 .CountryInfoDetails > div {
-  padding: 2px 5px;
+  padding: 0.3vh 0.3vw;
 }
 
 .CountryInfoDetails > div > span {
   font-weight: bold;
-  font-size: 16px;
 }
 
 .CountryInfoButtons {

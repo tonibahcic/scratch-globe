@@ -88,7 +88,8 @@ const theme = createTheme({
           borderRadius: "13px !important",
           borderColor: "black !important",
           color: "black !important",
-          fontWeight: "bold !important"
+          fontWeight: "bold !important",
+          fontSize: "calc(5px + 1vmin) !important"
         }
       }
     },

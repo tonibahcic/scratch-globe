@@ -7,6 +7,6 @@
   border-radius: 20px;
   margin: 2vh;
   width: 100%;
-  max-width: 450px;
-  min-width: 300px;
+  max-width: calc(250px + 10vmin);
+  min-width: calc(250px + 5vmin);
 }

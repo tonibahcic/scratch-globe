@@ -1,0 +1,35 @@
+.NavigationBar {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  background-color: rgba(157, 186, 208, 0.73);
+  border: 2px solid black;
+  border-radius: 20px;
+  margin: 2vh;
+  width: 100%;
+  max-width: calc(150px + 10vmin);
+  min-width: calc(150px + 5vmin);
+}
+
+.Item {
+  padding: 10px 0;
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.Item:first-child {
+  margin-top: 20px;
+}
+
+.Item:last-child {
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.Item:hover {
+  cursor: pointer;
+  color: lightblue;
+  background-color: black;
+}
