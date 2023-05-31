@@ -1,10 +1,11 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 import Globe from "react-globe.gl";
 import * as THREE from 'three';
-import {countriesGeoJson, findCountryByCountryCode} from "../../data/Countries/conutries";
+import {countriesGeoJson, findCountryByCountryCode, getFlagCode} from "../../data/Countries/conutries";
 import {SelectedCountryContext, VisitedCountriesContext} from "../App/App";
 import {useWindowSize} from "usehooks-ts";
 import './GlobeWrapper.css';
+import {getFlagCapMaterial} from "../../data/Materials/countryCapMaterials";
 
 function GlobeWrapper() {
   const globeRef = useRef();
@@ -54,10 +55,10 @@ function GlobeWrapper() {
     }
 
     if (isVisited) {
-      return '#DAECF6'
+      return 'rgb(218,236,246)'
     }
 
-    return '#6E8FC6'
+    return 'rgb(110,143,198)'
   }
 
   const globeMaterial = () => {
@@ -68,6 +69,22 @@ function GlobeWrapper() {
     material.transparent = true
     material.opacity = 0.95
 
+    return material
+  }
+
+  const computedCapMaterial = (polygon: any) => {
+    let codeName = polygon?.properties.ADM0_A3_IS
+    let isVisited = visitedCountries.includes(codeName)
+
+    if (isVisited) {
+      let flagCode = getFlagCode(polygon?.properties).toLowerCase()
+      return getFlagCapMaterial(flagCode)
+    }
+
+    const material = new THREE.MeshPhongMaterial();
+    let color = new THREE.Color();
+    color.setStyle(getCountryColor(polygon))
+    material.color = color
     return material
   }
 
@@ -98,6 +115,7 @@ function GlobeWrapper() {
         polygonSideColor={() => '#ffffff00'} // sides
         polygonStrokeColor={() => '#003296'} // borders
         polygonCapColor={getCountryColor} // surface
+        polygonCapMaterial={computedCapMaterial}
         polygonLabel={getCountryLabel}
         onPolygonHover={setCountryHovered}
         onPolygonClick={onCountryClick}

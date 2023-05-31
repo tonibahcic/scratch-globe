@@ -16,7 +16,7 @@ export const findCountryByCountryCode = (code: string): Country | undefined => {
   return getCountries().find(country => country.code === code)
 }
 
-const getCountries = (): Country[] => countriesGeoJson.features
+export const getCountries = (): Country[] => countriesGeoJson.features
   .map((properties: any) => {
     let searchMatches = getSearchMatches(properties.properties)
     let coordinates = getCoordinates(properties)
@@ -64,7 +64,7 @@ const getCoordinates = (properties: any): number[] => {
   return [...center.geometry.coordinates]
 }
 
-const getFlagCode = (properties: any): string => {
+export const getFlagCode = (properties: any): string => {
   const validate = (code: number | string | undefined): string | null => {
     if (code === undefined) return null
     if (code === "-99") return null
