@@ -26,6 +26,7 @@ function CountryInfo({closeInfo}: IProps) {
     <div className="CountryInfo">
       <div className="CountryInfoHeader">
         <div className="CountryInfoHeaderName">
+          {/* TODO: Load from existing flags list */}
           <ReactCountryFlag
             countryCode={selectedCountry?.flagCode ?? ""}
             svg

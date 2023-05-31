@@ -14,10 +14,12 @@ const getFlagUrls = () => {
 const flagUrls: any[] = getFlagUrls();
 
 const promises = () => flagUrls.map(urlMap => {
+  // TODO: Try get from local storage / cache
   return fetch(urlMap.url)
     .then((response) => response.blob())
     .then(async blob => {
       let text = await blob.text()
+      // TODO: Save to local storage / cache
       return {
         code: urlMap.code,
         svg: btoa(text)
