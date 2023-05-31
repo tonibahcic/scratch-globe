@@ -6,10 +6,10 @@ function NavigationBar() {
   return (
     <>
       <div className="NavigationBar">
-        <Link to="/" className="Item">Globe</Link>
-        <Link to="/travel-agent" className="Item">Travel agent</Link>
-        <Link to="/future-trips" className="Item">Future trips</Link>
-        <Link to="/profile" className="Item">Profile</Link>
+        <Link to="/scratch-globe" className="Item">Globe</Link>
+        <Link to="/scratch-globe/travel-agent" className="Item">Travel agent</Link>
+        <Link to="/scratch-globe/future-trips" className="Item">Future trips</Link>
+        <Link to="/scratch-globe/profile" className="Item">Profile</Link>
       </div>
       <Outlet />
     </>

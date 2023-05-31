@@ -58,16 +58,16 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<NavigationBar/>}>
-          <Route path={"/"} element={
+        <Route path="/scratch-globe" element={<NavigationBar/>}>
+          <Route path="/scratch-globe" element={
             <>
               <GlobeWrapper/>
               <CountryBar/>
             </>
           }/>
-          <Route path="/travel-agent" element={<>Agent</>}/>
-          <Route path="/future-trips" element={<>Future trips</>}/>
-          <Route path="/profile" element={<>Profile</>}/>
+          <Route path="/scratch-globe/travel-agent" element={<>Agent</>}/>
+          <Route path="/scratch-globe/future-trips" element={<>Future trips</>}/>
+          <Route path="/scratch-globe/profile" element={<>Profile</>}/>
         </Route>
       </Routes>
     </BrowserRouter>
