@@ -90,7 +90,7 @@ const theme = createTheme({
           borderColor: "black !important",
           color: "black !important",
           fontWeight: "bold !important",
-          fontSize: "calc(5px + 1vmin) !important"
+          fontSize: "calc(8px + 1vmin) !important"
         }
       }
     },
